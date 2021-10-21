@@ -1,16 +1,6 @@
 import sys
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow
-
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        QMainWindow.__init__(self)
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            print("appui bouton gauche")
-
+from PyQt5.QtWidgets import QApplication
+from TonyPacker.views.main_window import MainWindow
 
 if __name__ == "__main__":
     """ Run the application """
