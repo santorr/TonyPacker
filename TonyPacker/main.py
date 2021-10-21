@@ -1,23 +1,21 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class Fenetre(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
-        QWidget.__init__(self)
-        self.setWindowTitle("Ma fenetre")
+        QMainWindow.__init__(self)
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             print("appui bouton gauche")
 
 
-app = QApplication.instance()
-if not app:
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-
-fen = Fenetre()
-fen.show()
-
-app.exec_()
+    window = MainWindow()
+    window.setWindowTitle("Tony Paker")
+    window.showMaximized()
+    window.show()
+    app.exec_()
