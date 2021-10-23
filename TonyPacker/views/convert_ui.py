@@ -11,5 +11,5 @@ for file in os.listdir(path):
     name, extension = os.path.splitext(file)
     if extension == ".ui":
         cmd = f"pyuic5 {Path(path, file)} -o {Path(path, name + '_convert.py')}"
-        print(cmd)
         os.system(cmd)
+        print(f"[DEBUG] File converted with success : {file} to {name + '_convert.py'}")
