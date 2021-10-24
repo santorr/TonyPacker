@@ -134,6 +134,7 @@ class Channel(QWidget):
             result = self.isolate_channel(array, 3)
 
         print(result.shape)
+        # self.array_to_image(result)
 
     def isolate_channel(self, array, channel):
         """ Isolate the desired channel
