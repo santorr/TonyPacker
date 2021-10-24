@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
 
     def setup_ui(self):
         """ main window ui """
-        self.setStyleSheet("""background: #252525;""")
+        self.setStyleSheet("""background: #2d2d2d;""")
         """ Create a main grid layout """
         self.grid = QGridLayout()
         self.grid.setAlignment(Qt.AlignLeft)
