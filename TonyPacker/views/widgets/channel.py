@@ -5,8 +5,7 @@ from TonyPacker.models.enums import Channels
 from TonyPacker.views.widgets.draggable_channel import DraggableImage
 import numpy
 from PIL import Image
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+
 
 class Channel(QWidget):
     def __init__(self, channel_type=None):
@@ -34,7 +33,6 @@ class Channel(QWidget):
 
         """ Label """
         self.label = QLabel(f"Channel ({self.channel_type.name[0]})")
-        self.label.setStyleSheet("""color: #ffffff;""")
         self.label.setAlignment(Qt.AlignCenter)
         sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
         self.label.setSizePolicy(sizePolicy)
@@ -72,20 +70,27 @@ class Channel(QWidget):
         grid.addWidget(self.clear_button, 3, 0, 1, 2)
 
         """ Create all style sheet """
+        font_color = "d8d8d8"
+        font_family = "Noto Sans"
+
+        self.label.setStyleSheet("""
+        color: #%s; font: 8pt '%s';
+        """ % (font_color, font_family))
         self.clear_button.setStyleSheet("""
-        QPushButton { background-color: #202020; color: #ffffff; border-radius: 7px; height: 30px; }
+        QPushButton { background-color: #4aa4fa; color: #%s; border-radius: 7px; height: 30px; font: 8pt '%s';}
         QPushButton:hover { background: #252525; }
-        QPushButton:disabled { background: #505050; }""")
+        QPushButton:disabled { background: #505050; }""" % (font_color, font_family))
         self.slider.setStyleSheet("""
         QSlider::groove:vertical { width: 15px; background: #202020; border-radius: 7px; }
         QSlider::handle:vertical { background: #4aa4fa; width: 15px; height: 15px; border-radius: 7px;}
+        QSlider::handle:vertical:disabled { background: #505050;}
         """)
         self.spinbox.setStyleSheet("""
-        QSpinBox { background: #202020; color: #ffffff; padding-right: 15px; }
+        QSpinBox { background: #202020; color: #%s; padding-right: 15px; font: 8pt '%s';}
         QSpinBox::up-button { subcontrol-origin: border; subcontrol-position: top right }
         QSpinBox::up-arrow { width: 7px; height: 7px; }
         QSpinBox::down-button { subcontrol-origin: border; subcontrol-position: bottom right; }
-        """)
+        """ % (font_color, font_family))
 
     def clear_texture(self):
         self.slider.setEnabled(True)
@@ -111,26 +116,51 @@ class Channel(QWidget):
         # img.save("C:/Users/santorr/Desktop/test.jpeg")
 
     def modify_array_shape(self, array):
-        if len(array.shape) > 2:
-            if self.channel_type == Channels.RED:
-                print("On doit garder le channel rouge")
-            elif self.channel_type == Channels.GREEN:
-                print("On doit garder le channel vert")
-            elif self.channel_type == Channels.BLUE:
-                print("On doit garder le channel bleu")
-            elif self.channel_type == Channels.ALPHA:
-                print("On doit garder le channel alpha")
+        """
+        Isolate the desired channel R, G, B, A
+        It's possible to import multiple image types :
+        - grayscale : shape(2556, 256)
+        - RGB : shape(256, 256, 3)
+        - RGBA : shape(256, 256, 4)
+        """
+
+        if self.channel_type == Channels.RED:
+            result = self.isolate_channel(array, 0)
+        elif self.channel_type == Channels.GREEN:
+            result = self.isolate_channel(array, 1)
+        elif self.channel_type == Channels.BLUE:
+            result = self.isolate_channel(array, 2)
         else:
-            """ On doit garder le seul channel existant """
-            print(array.shape)
+            result = self.isolate_channel(array, 3)
+
+        print(result.shape)
+
+    def isolate_channel(self, array, channel):
+        """ Isolate the desired channel
+        channel = 0 = RED
+        channel = 1 = GREEN
+        channel = 2 = BLUE
+        channel = 3 = ALPHA
+        """
+        print(Channels(channel).name)
+        if len(array.shape) > 2:
+            try:
+                return numpy.dsplit(array, array.shape[-1])[channel]
+            except:
+                return numpy.dsplit(array, array.shape[-1])[0]
+        else:
+            return array
 
     def open_image(self, image_path):
+        """ Open and return an image from image_path """
         return Image.open(image_path)
 
     def image_to_array(self, image):
+        """ Return an array converted from an image """
         return numpy.asarray(image)
 
     def array_to_image(self, array):
+        """ Return an image converted from an array """
         return Image.fromarray(array)
 
     def resize_array(self, array, size):
@@ -139,3 +169,5 @@ class Channel(QWidget):
     def resize_image(self, image, size):
         return Image.fromarray(numpy.array(image.resize((size, size))))
 
+    def set_preview(self):
+        pass
