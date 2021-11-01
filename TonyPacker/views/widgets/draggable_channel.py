@@ -9,8 +9,8 @@ class DraggableImage(QWidget):
         self.channel = channel
 
         self.setAcceptDrops(True)
-        size = 150
-        self.setFixedSize(QSize(size, size))
+        self.resolution = 150
+        self.setFixedSize(QSize(self.resolution, self.resolution))
         self.grid = QGridLayout()
         self.grid.setContentsMargins(0, 0, 0, 0)
         self.grid.setSpacing(0)
