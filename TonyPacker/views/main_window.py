@@ -2,16 +2,13 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFrame, QPushButton, QFileDialog
 from TonyPacker.models.enums import Channels
 from TonyPacker.views.widgets.channel import Channel
-from TonyPacker.models.model_channel import ModelChannel
+from TonyPacker.models.model_texture import ModelTexture
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        # test = ModelChannel()
-        # test.fill_data_with_image(_image_path=r"C:\Users\santorr\Documents\Megascans Library\Downloaded\surface\brick_rough_vgvmcgf\Thumbs\1k\vgvmcgf_1K_Albedo.jpg")
-        # test.save_image()
         self.file_resolution = (512, 512)
 
         self.setup_ui()
@@ -58,4 +55,11 @@ class MainWindow(QMainWindow):
         QPushButton:disabled { background: #505050; }""" % (font_color, font_family))
 
     def export_texture(self):
-        name = QFileDialog.getSaveFileName(self, 'Save File')
+        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")
+        if _file_path:
+            _new_texture = ModelTexture(_channel_r=self.r_channel.channel_data.get_data(),
+                                        _channel_g=self.g_channel.channel_data.get_data(),
+                                        _channel_b=self.b_channel.channel_data.get_data(),
+                                        _channel_a=self.a_channel.channel_data.get_data(),
+                                        _resolution=self.file_resolution)
+            _new_texture.save_image(_full_path=fr"{_file_path[0]}")

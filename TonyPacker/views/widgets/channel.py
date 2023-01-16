@@ -117,9 +117,5 @@ class Channel(QWidget):
 
     def set_preview_image(self):
         """ Set the preview image """
-        img = QPixmap.fromImage(ImageQt(self.channel_data.get_image((200, 200))))
+        img = QPixmap.fromImage(ImageQt(self.channel_data.get_image()))
         self.preview.label.setPixmap(img)
-
-    # def bgr_to_rgb(self, array: np.ndarray) -> np.ndarray:
-    #     """ Return a RGB array from a BGR array """
-    #     return cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
