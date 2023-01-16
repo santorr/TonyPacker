@@ -38,7 +38,7 @@ class DraggableImage(QWidget):
         if event.mimeData().hasImage:
             event.setDropAction(Qt.CopyAction)
             file_path = event.mimeData().urls()[0].toLocalFile()
-            self.channel.import_image(file_path)
+            self.channel.set_channel_with_image(file_path)
             event.accept()
         else:
             event.ignore()

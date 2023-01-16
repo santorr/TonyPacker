@@ -1,40 +1,26 @@
-import numpy as np
 from PIL.ImageQt import ImageQt
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QSlider, QSpinBox, QPushButton, QSizePolicy
-import cv2
 from TonyPacker.views.widgets.draggable_channel import DraggableImage
-from PIL import Image
+from TonyPacker.models.model_channel import ModelChannel
 
 
 class Channel(QWidget):
-    """
-    Cette classe permet de gerer un channel de texture. Il est possible d'y importer une texture ou
-    de creer une texture avec une valeur de 0 a 255.
-    Dans le cas ou on importe une texture :
-    - Drag and drop une image dans le channel
-    - Lecture de l'image en format BGR
-    - Conversion de l'image en format RGB
-    - Isolement du bon channel (R, G ou B selon le channel dans lequel on a glisse la texture)
-    - Creation de la miniature pour visualiser ce qui en ressortira
-    Dans le cas ou on cree une texture :
-    - Creer un array avec la valeur du slider
-    - Creation de la miniature pour visualiser ce qui en ressortira
-    """
     def __init__(self, channel_type=None, default_value=255):
         super(Channel, self).__init__()
+        """ Init variables """
         self.channel_type = channel_type
         self.default_value = default_value
-        self.desired_resolution = None
-        self.array_full_size = []
-
+        """ Create channel data """
+        self.channel_data = ModelChannel()
+        """ Create Ui """
         self.setup_ui()
         """ Create all connect """
         self.clear_button.clicked.connect(self.clear_texture)
-        self.spinbox.valueChanged.connect(self.spinbox_changed)
-        self.slider.valueChanged.connect(self.slider_changed)
-
+        self.spinbox.valueChanged.connect(self.on_spinbox_changed)
+        self.slider.valueChanged.connect(self.on_slider_changed)
+        """ Set slider value """
         self.slider.setValue(self.default_value)
 
     def setup_ui(self):
@@ -108,53 +94,32 @@ class Channel(QWidget):
         self.slider.setEnabled(True)
         self.spinbox.setEnabled(True)
         self.clear_button.setEnabled(False)
-        self.create_empty_array()
+        self.set_channel_with_slider()
 
-    def slider_changed(self):
+    def on_slider_changed(self):
         self.spinbox.setValue(self.slider.value())
-        self.create_empty_array()
+        self.set_channel_with_slider()
 
-    def spinbox_changed(self):
+    def on_spinbox_changed(self):
         self.slider.setValue(self.spinbox.value())
 
-    def import_image(self, image_path):
+    def set_channel_with_slider(self):
+        self.channel_data.fill_data_with_uniform_value(self.slider.value())
+        self.set_preview_image()
+
+    def set_channel_with_image(self, image_path):
         self.slider.setEnabled(False)
         self.spinbox.setEnabled(False)
         self.clear_button.setEnabled(True)
 
-        """ Open image with cv2 with format BGR, no alpha """
-        self.array_full_size = self.open_image(image_path)
-        """ Convert BGR to RGB """
-        self.array_full_size = self.bgr_to_rgb(self.array_full_size)
-        """ Isolate the desired channel, else keep the channel 0 """
-        try:
-            self.array_full_size = self.array_full_size[:, :, self.channel_type.value]
-        except:
-            self.array_full_size = self.array_full_size[:, :, 0]
-
-        self.desired_resolution = min(self.array_full_size.shape[0], self.array_full_size.shape[1])
-        self.set_preview_image()
-
-    def create_empty_array(self):
-        self.array_full_size = np.ones((4, 4), 'uint8') * self.slider.value()
-        self.desired_resolution = 2048
+        self.channel_data.fill_data_with_image(image_path)
         self.set_preview_image()
 
     def set_preview_image(self):
-        print(self.desired_resolution)
         """ Set the preview image """
-        preview_img = self.resize_array(array=self.array_full_size, size=self.preview.resolution)
-        img = QPixmap.fromImage(ImageQt(Image.fromarray(preview_img)))
+        img = QPixmap.fromImage(ImageQt(self.channel_data.get_image((200, 200))))
         self.preview.label.setPixmap(img)
 
-    def open_image(self, image_path: str) -> np.ndarray:
-        """ Open and return a BGR array from image_path """
-        return cv2.imread(image_path, cv2.IMREAD_COLOR)
-
-    def bgr_to_rgb(self, array: np.ndarray) -> np.ndarray:
-        """ Return a RGB array from a BGR array """
-        return cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
-
-    def resize_array(self, array: np.ndarray, size: int) -> np.ndarray:
-        """ Resize an array with a specific resolution """
-        return cv2.resize(array, dsize=(size, size), interpolation=cv2.INTER_AREA)
+    # def bgr_to_rgb(self, array: np.ndarray) -> np.ndarray:
+    #     """ Return a RGB array from a BGR array """
+    #     return cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
