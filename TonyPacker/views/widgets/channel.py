@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QSlider, QSpinBox, QPushButton, QSizePolicy
 from TonyPacker.views.widgets.draggable_channel import DraggableImage
+from TonyPacker.views.widgets.spin_box import SpinBox
 from TonyPacker.models.model_channel import ModelChannel
 
 
@@ -25,70 +26,73 @@ class Channel(QWidget):
 
     def setup_ui(self):
         """ Create all the setup for the channel ui """
-        """ Grid  layout """
-        grid = QGridLayout()
-        grid.setContentsMargins(0, 0, 0, 0)
-        grid.setSpacing(0)
-        self.setLayout(grid)
+        _grid = QGridLayout()
+        _grid.setContentsMargins(0, 0, 0, 0)
+        _grid.setSpacing(0)
+        self.setLayout(_grid)
 
-        """ Label """
-        self.label = QLabel(f"Channel ({self.channel_type.name[0]})")
+        # self.label = QLabel(f"Channel ({self.channel_type.name[0]})")
+        self.label = QLabel(self.channel_type.name[0])
         self.label.setAlignment(Qt.AlignCenter)
-        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
-        self.label.setSizePolicy(sizePolicy)
+        _sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        self.label.setSizePolicy(_sizePolicy)
+        self.label.setContentsMargins(0, 0, 0, 10)
 
-        """ Preview """
         self.preview = DraggableImage(self)
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
-        self.preview.setSizePolicy(sizePolicy)
+        _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        self.preview.setSizePolicy(_sizePolicy)
 
-        """ Slider """
         self.slider = QSlider()
         self.slider.setMinimum(0)
         self.slider.setMaximum(255)
         self.slider.setTickInterval(1)
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
-        self.slider.setSizePolicy(sizePolicy)
+        _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
+        self.slider.setSizePolicy(_sizePolicy)
 
-        """ Spinbox """
         self.spinbox = QSpinBox()
         self.spinbox.setMinimum(0)
         self.spinbox.setMaximum(255)
 
-        """ clear_button """
         self.clear_button = QPushButton()
         self.clear_button.setText("Clear")
         self.clear_button.setEnabled(False)
 
-        """ Pack all elements in the layout """
-        grid.addWidget(self.label, 0, 0, 1, 2)
-        grid.addWidget(self.preview, 1, 0)
-        grid.addWidget(self.slider, 1, 1)
-        grid.addWidget(self.spinbox, 2, 0, 1, 2)
-        grid.addWidget(self.clear_button, 3, 0, 1, 2)
+        _grid.addWidget(self.label, 0, 0, 1, 2)
+        _grid.addWidget(self.preview, 1, 0)
+        _grid.addWidget(self.slider, 1, 1)
+        _grid.addWidget(self.spinbox, 2, 0, 1, 2)
+        _grid.addWidget(self.clear_button, 3, 0, 1, 2)
+        # self.test_spin_box = SpinBox(_minimum_value=0, _maximum_value=255, _default_value=self.default_value)
+        # _grid.addWidget(self.test_spin_box, 4, 0, 1, 2)
 
+        self.setup_style()
+
+    def setup_style(self):
         """ Create all style sheet """
-        font_color = "d8d8d8"
-        font_family = "Noto Sans"
+        _font_size = 10
+        _font_color = "f2f2f2"
+        _font_family = "Noto Sans"
+        _border_radius = 3
 
         self.label.setStyleSheet("""
-        color: #%s; font: 8pt '%s';
-        """ % (font_color, font_family))
+        color: #%s; font: %spt '%s';
+        """ % (_font_color, _font_size, _font_family))
         self.clear_button.setStyleSheet("""
-        QPushButton { background-color: #4aa4fa; color: #%s; border-radius: 7px; height: 30px; font: 8pt '%s';}
-        QPushButton:hover { background: #252525; }
-        QPushButton:disabled { background: #505050; }""" % (font_color, font_family))
+        QPushButton { background-color: #fc2100; color: #%s; border-radius: %spx; height: 30px; font: %spt '%s';}
+        QPushButton:hover { background: #ca1e00; }
+        QPushButton:pressed { background: #bd2400; }
+        QPushButton:disabled { background: #505050; }""" % (_font_color, _border_radius, _font_size, _font_family))
         self.slider.setStyleSheet("""
-        QSlider::groove:vertical { width: 15px; background: #202020; border-radius: 7px; }
+        QSlider::groove:vertical { width: 15px; background: #181818; border-radius: 7px; }
         QSlider::handle:vertical { background: #4aa4fa; width: 15px; height: 15px; border-radius: 7px;}
         QSlider::handle:vertical:disabled { background: #505050;}
         """)
         self.spinbox.setStyleSheet("""
-        QSpinBox { background: #202020; color: #%s; padding-right: 15px; font: 8pt '%s';}
+        QSpinBox { background: #181818; color: #%s; padding-right: 15px; font: %spt '%s';}
         QSpinBox::up-button { subcontrol-origin: border; subcontrol-position: top right }
         QSpinBox::up-arrow { width: 7px; height: 7px; }
         QSpinBox::down-button { subcontrol-origin: border; subcontrol-position: bottom right; }
-        """ % (font_color, font_family))
+        """ % (_font_color, _font_size, _font_family))
 
     def clear_texture(self):
         self.slider.setEnabled(True)
@@ -117,5 +121,7 @@ class Channel(QWidget):
 
     def set_preview_image(self):
         """ Set the preview image """
+        _preview_size = self.preview.resolution
         img = QPixmap.fromImage(ImageQt(self.channel_data.get_image()))
-        self.preview.label.setPixmap(img)
+
+        self.preview.label.setPixmap(img.scaled(_preview_size, _preview_size, Qt.KeepAspectRatio))
