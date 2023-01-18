@@ -66,9 +66,10 @@ class MainWindow(QMainWindow):
         QPushButton:disabled { background: #505050; }""" % (_font_color, _border_radius, _font_size, _font_family))
 
     def export_texture(self):
-        if _file_path := QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)"):
-            _path = _file_path[0]
-            _format = _file_path[1]
+        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")
+        _path = _file_path[0]
+        _format = _file_path[1]
+        if _path != '' and _format != '':
             _new_texture = ModelTexture(_channel_r=self.r_channel.channel_data.get_data(),
                                         _channel_g=self.g_channel.channel_data.get_data(),
                                         _channel_b=self.b_channel.channel_data.get_data(),
