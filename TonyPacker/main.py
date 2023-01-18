@@ -1,4 +1,5 @@
 import sys
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 from TonyPacker.views.main_window import MainWindow
 
@@ -9,6 +10,7 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.0.1")
     """ Create the main window """
     window = MainWindow()
+    window.setWindowIcon(QIcon('images/logo.png'))
     window.setWindowTitle(" ".join([app.applicationName(), app.applicationVersion()]))
     window.showNormal()
     window.setFixedSize(0, 0)

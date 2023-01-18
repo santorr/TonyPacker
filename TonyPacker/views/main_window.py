@@ -8,8 +8,8 @@ from TonyPacker.models.model_texture import ModelTexture
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-
         self.file_resolution = (2048, 2048)
+        self.resolutions = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]
 
         self.setup_ui()
 

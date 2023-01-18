@@ -49,9 +49,7 @@ class Channel(QWidget):
         _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
         self.slider.setSizePolicy(_sizePolicy)
 
-        self.spinbox = QSpinBox()
-        self.spinbox.setMinimum(0)
-        self.spinbox.setMaximum(255)
+        self.spinbox = SpinBox()
 
         self.clear_button = QPushButton()
         self.clear_button.setText("Clear")
@@ -62,8 +60,6 @@ class Channel(QWidget):
         _grid.addWidget(self.slider, 1, 1)
         _grid.addWidget(self.spinbox, 2, 0, 1, 2)
         _grid.addWidget(self.clear_button, 3, 0, 1, 2)
-        # self.test_spin_box = SpinBox(_minimum_value=0, _maximum_value=255, _default_value=self.default_value)
-        # _grid.addWidget(self.test_spin_box, 4, 0, 1, 2)
 
         self.setup_style()
 
@@ -84,15 +80,9 @@ class Channel(QWidget):
         QPushButton:disabled { background: #505050; }""" % (_font_color, _border_radius, _font_size, _font_family))
         self.slider.setStyleSheet("""
         QSlider::groove:vertical { width: 15px; background: #181818; border-radius: 7px; }
-        QSlider::handle:vertical { background: #4aa4fa; width: 15px; height: 15px; border-radius: 7px;}
+        QSlider::handle:vertical { background: #009bfc; width: 15px; height: 15px; border-radius: 7px;}
         QSlider::handle:vertical:disabled { background: #505050;}
         """)
-        self.spinbox.setStyleSheet("""
-        QSpinBox { background: #181818; color: #%s; padding-right: 15px; font: %spt '%s';}
-        QSpinBox::up-button { subcontrol-origin: border; subcontrol-position: top right }
-        QSpinBox::up-arrow { width: 7px; height: 7px; }
-        QSpinBox::down-button { subcontrol-origin: border; subcontrol-position: bottom right; }
-        """ % (_font_color, _font_size, _font_family))
 
     def clear_texture(self):
         self.slider.setEnabled(True)
