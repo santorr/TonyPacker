@@ -1,8 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFrame, QPushButton, QFileDialog
-from TonyPacker.models.enums import Channels
-from TonyPacker.views.widgets.channel import Channel
-from TonyPacker.models.model_texture import ModelTexture
+from src.models.enums import Channels
+from src.views.widgets.channel import Channel
+from src.models.model_texture import ModelTexture
 
 
 class MainWindow(QMainWindow):

@@ -1,10 +1,10 @@
 from PIL.ImageQt import ImageQt
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QSlider, QSpinBox, QPushButton, QSizePolicy
-from TonyPacker.views.widgets.draggable_channel import DraggableImage
-from TonyPacker.views.widgets.spin_box import SpinBox
-from TonyPacker.models.model_channel import ModelChannel
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QSlider, QPushButton, QSizePolicy
+from .draggable_channel import DraggableImage
+from .spin_box import SpinBox
+from ...models.model_channel import ModelChannel
 
 
 class Channel(QWidget):

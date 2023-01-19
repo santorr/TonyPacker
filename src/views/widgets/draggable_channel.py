@@ -42,7 +42,8 @@ class DraggableImage(QWidget):
         else:
             event.ignore()
 
-    def create_label(self, text):
+    @staticmethod
+    def create_label(text):
         label = QLabel()
         label.setText(text)
         label.setAlignment(Qt.AlignCenter)
