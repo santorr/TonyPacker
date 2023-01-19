@@ -2,3 +2,4 @@ PyQt5
 numpy
 Pillow
 opencv-python
+pyinstaller @ https://github.com/pyinstaller/pyinstaller/archive/develop.zip
