@@ -18,4 +18,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Tony Packer
-        path: downloads
+        path: src/dist/windows
