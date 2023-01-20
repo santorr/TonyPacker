@@ -1,9 +1,9 @@
 import sys
-import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 from src.views.main_window import MainWindow
+from src.controllers.utility import package_file_path
 
 if __name__ == "__main__":
     """ Run the application """
@@ -13,11 +13,7 @@ if __name__ == "__main__":
     """ Create the main window """
     window = MainWindow()
 
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-    window.setWindowIcon(QIcon(os.path.join(base_path, 'images/logo.png')))
+    window.setWindowIcon(QIcon(package_file_path('images/logo.png')))
 
     window.setWindowFlags(Qt.WindowStaysOnTopHint)
     window.setWindowTitle(" ".join([app.applicationName(), app.applicationVersion()]))
