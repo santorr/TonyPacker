@@ -13,7 +13,10 @@ if __name__ == "__main__":
     """ Create the main window """
     window = MainWindow()
 
-    base_path = os.path.abspath(".")
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
     window.setWindowIcon(QIcon(os.path.join(base_path, 'images/logo.png')))
 
     window.setWindowFlags(Qt.WindowStaysOnTopHint)
