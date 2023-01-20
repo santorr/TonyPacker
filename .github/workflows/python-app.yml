@@ -23,7 +23,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Tony Packer
-        path: ${{ env.PATH_RELEASE }}/dist
+        path: ${{ env.PATH_RELEASE }}
         
     - name: Push production releaseon Github
       uses: svenstaro/upload-release-action@v2
