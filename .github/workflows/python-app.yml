@@ -2,7 +2,12 @@ name: Package application
 
 on:
   push
-
+  
+env:
+  NAME_APP: 'Tony Packer'
+  NAME_EXE: TonyPacker.exe
+  PATH_RELEASE: ${{ github.workspace }}\release
+  
 jobs:
   build:
 
@@ -14,7 +19,16 @@ jobs:
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
         path: src
-
+        
+    - name: Push production releaseon Github
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.PATH_RELEASE }}/dist/${{ env.NAME_EXE }}
+        file_glob: true
+        tag: v1.0.1
+        overwrite: true
+        
     - uses: actions/upload-artifact@v2
       with:
         name: Tony Packer
