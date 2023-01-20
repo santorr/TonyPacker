@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
@@ -11,7 +12,10 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.0.1")
     """ Create the main window """
     window = MainWindow()
-    window.setWindowIcon(QIcon('images\logo.png'))
+
+    scriptDir = os.path.dirname(os.path.realpath(__file__))
+    window.setWindowIcon(QIcon(scriptDir + os.path.sep + 'images\logo.png'))
+
     window.setWindowFlags(Qt.WindowStaysOnTopHint)
     window.setWindowTitle(" ".join([app.applicationName(), app.applicationVersion()]))
     window.showNormal()
