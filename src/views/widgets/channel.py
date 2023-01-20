@@ -1,18 +1,18 @@
 from PIL.ImageQt import ImageQt
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QSlider, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QGridLayout, QSizePolicy
 from .draggable_channel import DraggableImage
-from .spin_box import SpinBox
 from ...models.model_channel import ModelChannel
+from ...controllers.custom_widgets import SpinBox, Button, VerticalSlider, Label
 
 
 class Channel(QWidget):
-    def __init__(self, channel_type=None, default_value=255):
+    def __init__(self, _channel_type=None, _default_value=255):
         super(Channel, self).__init__()
         """ Init variables """
-        self.channel_type = channel_type
-        self.default_value = default_value
+        self.channel_type = _channel_type
+        self.default_value = _default_value
         """ Create channel data """
         self.channel_data = ModelChannel()
         """ Create Ui """
@@ -31,8 +31,7 @@ class Channel(QWidget):
         _grid.setSpacing(0)
         self.setLayout(_grid)
 
-        # self.label = QLabel(f"Channel ({self.channel_type.name[0]})")
-        self.label = QLabel(self.channel_type.name[0])
+        self.label = Label(_text=self.channel_type.name[0])
         self.label.setAlignment(Qt.AlignCenter)
         _sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
         self.label.setSizePolicy(_sizePolicy)
@@ -42,17 +41,13 @@ class Channel(QWidget):
         _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         self.preview.setSizePolicy(_sizePolicy)
 
-        self.slider = QSlider()
-        self.slider.setMinimum(0)
-        self.slider.setMaximum(255)
-        self.slider.setTickInterval(1)
+        self.slider = VerticalSlider(_minimum=0, _maximum=255, _tick_interval=1)
         _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
         self.slider.setSizePolicy(_sizePolicy)
 
         self.spinbox = SpinBox()
 
-        self.clear_button = QPushButton()
-        self.clear_button.setText("Clear")
+        self.clear_button = Button(_text="Clear", _color_normal='fc2100', _color_hover='ca1e00', _color_pressed='bd2400', _color_disabled='505050', _height=30)
         self.clear_button.setEnabled(False)
 
         _grid.addWidget(self.label, 0, 0, 1, 2)
@@ -60,29 +55,6 @@ class Channel(QWidget):
         _grid.addWidget(self.slider, 1, 1)
         _grid.addWidget(self.spinbox, 2, 0, 1, 2)
         _grid.addWidget(self.clear_button, 3, 0, 1, 2)
-
-        self.setup_style()
-
-    def setup_style(self):
-        """ Create all style sheet """
-        _font_size = 10
-        _font_color = "f2f2f2"
-        _font_family = "Noto Sans"
-        _border_radius = 3
-
-        self.label.setStyleSheet("""
-        color: #%s; font: %spt '%s';
-        """ % (_font_color, _font_size, _font_family))
-        self.clear_button.setStyleSheet("""
-        QPushButton { background-color: #fc2100; color: #%s; border-radius: %spx; height: 30px; font: %spt '%s';}
-        QPushButton:hover { background: #ca1e00; }
-        QPushButton:pressed { background: #bd2400; }
-        QPushButton:disabled { background: #505050; }""" % (_font_color, _border_radius, _font_size, _font_family))
-        self.slider.setStyleSheet("""
-        QSlider::groove:vertical { width: 15px; background: #181818; border-radius: 7px; }
-        QSlider::handle:vertical { background: #009bfc; width: 15px; height: 15px; border-radius: 7px;}
-        QSlider::handle:vertical:disabled { background: #505050;}
-        """)
 
     def clear_texture(self):
         self.slider.setEnabled(True)

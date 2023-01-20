@@ -1,8 +1,9 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFrame, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFrame, QFileDialog
 from src.models.enums import Channels
 from src.views.widgets.channel import Channel
 from src.models.model_texture import ModelTexture
+from src.controllers.custom_widgets import LineEdit, Button
 
 
 class MainWindow(QMainWindow):
@@ -32,18 +33,17 @@ class MainWindow(QMainWindow):
         main_widget.setLayout(_grid)
         self.setCentralWidget(main_widget)
 
-        self.r_channel = Channel(channel_type=Channels.RED, default_value=_r_channel_default_value)
-        self.g_channel = Channel(channel_type=Channels.GREEN, default_value=_g_channel_default_value)
-        self.b_channel = Channel(channel_type=Channels.BLUE, default_value=_b_channel_default_value)
-        self.a_channel = Channel(channel_type=Channels.ALPHA, default_value=_a_channel_default_value)
+        self.r_channel = Channel(_channel_type=Channels.RED, _default_value=_r_channel_default_value)
+        self.g_channel = Channel(_channel_type=Channels.GREEN, _default_value=_g_channel_default_value)
+        self.b_channel = Channel(_channel_type=Channels.BLUE, _default_value=_b_channel_default_value)
+        self.a_channel = Channel(_channel_type=Channels.ALPHA, _default_value=_a_channel_default_value)
 
         _separator = QFrame()
         _separator.setFrameShape(QFrame.HLine)
         _separator.setFrameShadow(QFrame.Raised)
         _separator.setLineWidth(0)
 
-        _export_button = QPushButton()
-        _export_button.setText("Export")
+        _export_button = Button(_text="Export", _color_normal='009bfc', _color_hover='0079ca', _color_pressed='0069bd', _color_disabled='505050')
         _export_button.clicked.connect(self.export_texture)
 
         _grid.addWidget(self.r_channel, 0, 0)
@@ -59,11 +59,6 @@ class MainWindow(QMainWindow):
         _font_family = "Noto Sans"
         _border_radius = 3
         _separator.setStyleSheet("""background: #181818;""")
-        _export_button.setStyleSheet("""
-        QPushButton { background-color: #009bfc; color: #%s; border-radius: %spx; height: 40px; font: %spt '%s'; font-weight: regular;}
-        QPushButton:hover { background: #0079ca; }
-        QPushButton:pressed { background: #0069bd; }
-        QPushButton:disabled { background: #505050; }""" % (_font_color, _border_radius, _font_size, _font_family))
 
     def export_texture(self):
         _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")

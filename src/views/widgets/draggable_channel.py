@@ -1,5 +1,7 @@
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtWidgets import QLabel, QWidget, QGridLayout
+from PyQt5.QtWidgets import QWidget, QGridLayout
+
+from src.controllers.custom_widgets import Label
 
 
 class DraggableImage(QWidget):
@@ -44,10 +46,6 @@ class DraggableImage(QWidget):
 
     @staticmethod
     def create_label(text):
-        label = QLabel()
-        label.setText(text)
+        label = Label(_text=text)
         label.setAlignment(Qt.AlignCenter)
-        label.setStyleSheet("""
-                QLabel{border: 1px dashed #aaa; color: #aaa}
-                """)
         return label
