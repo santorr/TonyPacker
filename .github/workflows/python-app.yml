@@ -6,7 +6,7 @@ on:
 env:
   NAME_APP: 'Tony Packer'
   NAME_EXE: TonyPacker.exe
-  PATH_RELEASE: ${{ github.workspace }}\downloads
+  PATH_RELEASE: ${{ github.workspace }}
   
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.PATH_RELEASE }}/dist/${{ env.NAME_EXE }}
+        file: ${{ env.PATH_RELEASE }}/${{ env.NAME_EXE }}
         file_glob: true
         tag: v1.0.1
         overwrite: true
