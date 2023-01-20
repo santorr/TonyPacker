@@ -14,7 +14,7 @@ if __name__ == "__main__":
     window = MainWindow()
 
     scriptDir = os.path.dirname(os.path.realpath(__file__))
-    window.setWindowIcon(QIcon(scriptDir + os.path.sep + 'images\logo.png'))
+    window.setWindowIcon(QIcon(scriptDir + os.path.sep + 'images/logo.png'))
 
     window.setWindowFlags(Qt.WindowStaysOnTopHint)
     window.setWindowTitle(" ".join([app.applicationName(), app.applicationVersion()]))
