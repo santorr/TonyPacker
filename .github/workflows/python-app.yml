@@ -20,6 +20,12 @@ jobs:
       with:
         path: src
         
+    - uses: actions/upload-artifact@v2
+    - name: upload artifact
+      with:
+        name: Tony Packer
+        path: ${{ env.PATH_RELEASE }}/dist
+        
     - name: Push production releaseon Github
       uses: svenstaro/upload-release-action@v2
       with:
@@ -29,7 +35,4 @@ jobs:
         tag: v1.0.1
         overwrite: true
         
-    - uses: actions/upload-artifact@v2
-      with:
-        name: Tony Packer
-        path: src/dist/windows
+
