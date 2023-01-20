@@ -21,7 +21,6 @@ jobs:
         path: src
         
     - uses: actions/upload-artifact@v2
-    - name: upload artifact
       with:
         name: Tony Packer
         path: ${{ env.PATH_RELEASE }}/dist
