@@ -22,14 +22,14 @@ jobs:
         
     - uses: actions/upload-artifact@v2
       with:
-        name: Tony Packer
+        name: TonyPacker
         path: src/dist/windows
         
     - name: Push production releaseon Github
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: src/dist/windows/Tony Packer.exe
+        file: src/dist/windows/TonyPacker.exe
         file_glob: true
         tag: v1.0.1
         overwrite: true
