@@ -29,7 +29,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.PATH_RELEASE }}/${{ env.NAME_EXE }}
+        file: src/dist/windows/Tony Packer.exe
         file_glob: true
         tag: v1.0.1
         overwrite: true
