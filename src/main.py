@@ -11,7 +11,7 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.0.1")
     """ Create the main window """
     window = MainWindow()
-#     window.setWindowIcon(QIcon('images/logo.png'))
+    window.setWindowIcon(QIcon('images/logo.png'))
     window.setWindowFlags(Qt.WindowStaysOnTopHint)
     window.setWindowTitle(" ".join([app.applicationName(), app.applicationVersion()]))
     window.showNormal()
