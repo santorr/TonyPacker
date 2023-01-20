@@ -6,7 +6,7 @@ on:
 env:
   NAME_APP: 'Tony Packer'
   NAME_EXE: TonyPacker.exe
-  PATH_RELEASE: ${{ github.workspace }}\release
+  PATH_RELEASE: ${{ github.workspace }}\downloads
   
 jobs:
   build:
