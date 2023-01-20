@@ -21,7 +21,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='Tony Packer',
+    name='TonyPacker',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
