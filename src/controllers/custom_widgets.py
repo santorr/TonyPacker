@@ -23,7 +23,8 @@ class SpinBox(QSpinBox):
         self.setup_style()
 
     def setup_style(self):
-        _spinup = absolute_path('images\\spinup.png')
+        # _spinup = 'E:/PROJETS/GIT/Perso/TonyPacker/src/images/spinup.png'
+        _spinup = absolute_path('images/spinup.png').replace('\\', '/')
         _spinup_hover = 'images/spinup_hover.png'
         _spinup_pressed = 'images/spinup_pressed.png'
 
