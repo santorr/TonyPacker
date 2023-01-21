@@ -14,7 +14,7 @@ class ResolutionController(QWidget):
         self.resolution_x_entry = IntEntry(_color='181818', _default_value=_default_resolution[0])
         self.resolution_y_entry = IntEntry(_color='181818', _default_value=_default_resolution[1])
         self.lock_aspect_ratio_button = ToggleButton(_color_unchecked='181818', _color_checked='505050',
-                                                     _default_value=True, _image_path="images/toggle_resolution.png")
+                                                     _default_value=True, _image_path="images\\toggle_resolution.png")
 
         _vertical_layout.addWidget(self.resolution_x_entry)
         _vertical_layout.addWidget(self.lock_aspect_ratio_button)
@@ -30,7 +30,7 @@ class ResolutionController(QWidget):
             self.resolution_y_entry.setEnabled(False)
             self.cal_ratio()
             print(f"Lock aspect ratio : {self.aspect_ratio}")
-            print(absolute_path("images/toggle_resolution.png"))
+            print(absolute_path("images\\toggle_resolution.png"))
         else:
             self.resolution_y_entry.setEnabled(True)
             print("Unlock aspect ratio")
