@@ -1,20 +1,10 @@
-from os.path import abspath, join, normpath
 import sys
 import os
 
 
 def absolute_path(relative_path):
-    # try:
-    #     base_path = sys._MEIPASS
-    # except Exception:
-    #     base_path = abspath("")
-    # if unix:
-    #     return normpath(join(base_path, rel_path)).replace("\\", "/")
-    # else:
-    #     return normpath(join(base_path, rel_path)
-    """ Get absolute path to resource, works for dev and for PyInstaller """
+    """ Get absolute path to resource """
     try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
