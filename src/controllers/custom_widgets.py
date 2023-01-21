@@ -1,5 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QSpinBox, QLineEdit, QPushButton, QSlider, QLabel
+from PyQt5.QtGui import QIntValidator, QIcon
+from PyQt5.QtWidgets import QSpinBox, QLineEdit, QPushButton, QSlider, QLabel, QFrame, QSizePolicy
+
+from src.controllers.utility import package_file_path
 
 _font_size = 10
 _font_color = "f2f2f2"
@@ -20,47 +23,65 @@ class SpinBox(QSpinBox):
         self.setup_style()
 
     def setup_style(self):
-        _font_size = 10
-        _font_color = "f2f2f2"
-        _font_family = "Noto Sans"
-
-        self.setStyleSheet("""
-        QSpinBox { background: #181818; color: #%s; padding-right: 15px; font: %spt '%s'; border-radius: 7px;}
-        QSpinBox::up-button { 
+        self.setStyleSheet(f"""
+        QSpinBox {{ background: #181818; color: #{_font_color}; padding-right: 15px; font: {_font_size}pt '{_font_family}'; border-radius: 7px;}}
+        QSpinBox::up-button {{ 
             subcontrol-origin: border; 
             subcontrol-position: right; 
             border-image: url(images/spinup.png); 
             width: 20px; 
             height: 20px;
-        }
-        QSpinBox::up-button:hover {
+        }}
+        QSpinBox::up-button:hover {{
             border-image: url(images/spinup_hover.png);
-        }
-        QSpinBox::up-button:pressed {
+        }}
+        QSpinBox::up-button:pressed {{
             border-image: url(images/spinup_pressed.png);
-        }
-        QSpinBox::down-button { 
+        }}
+        QSpinBox::down-button {{ 
             subcontrol-origin: border; 
             subcontrol-position: left;
             border-image: url(images/spindown.png); 
             width: 20px; 
             height: 20px;
-        }
-        QSpinBox::down-button:hover {
+        }}
+        QSpinBox::down-button:hover {{
             border-image: url(images/spindown_hover.png);
-        }
-        QSpinBox::down-button:pressed {
+        }}
+        QSpinBox::down-button:pressed {{
             border-image: url(images/spindown_pressed.png);
-        }
-        """ % (_font_color, _font_size, _font_family))
+        }}
+        """)
 
 
-class LineEdit(QLineEdit):
-    def __init__(self):
+class IntEntry(QLineEdit):
+    def __init__(self, _color, _default_value=2048):
         QLineEdit.__init__(self)
+        self.color = _color
+
+        self.setText(str(_default_value))
+        _int_validator = QIntValidator()
+        self.setValidator(_int_validator)
+        self.setAlignment(Qt.AlignHCenter)
+        _sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSizePolicy(_sizePolicy)
+
+        self.setup_style()
 
     def setup_style(self):
-        pass
+        self.setStyleSheet(f"""
+        color: #{_font_color};
+        font: {_font_size}pt '{_font_family}';
+        background-color: #{self.color};
+        border: 0;
+        border-radius: {_border_radius}px;
+        """)
+
+    def set_value(self, _value):
+        self.setText(str(_value))
+
+    def get_value(self):
+        return int(self.text())
 
 
 class Button(QPushButton):
@@ -76,33 +97,50 @@ class Button(QPushButton):
         self.setup_style()
 
     def setup_style(self):
-        self.setStyleSheet("""
-        QPushButton { 
-            background-color: #%s; 
-            color: #%s; 
-            border-radius: %spx; 
-            height: %spx; 
-            font: %spt '%s'; 
+        self.setStyleSheet(f"""
+        QPushButton {{ 
+            background-color: #{self.color_normal}; 
+            color: #{_font_color}; 
+            border-radius: {_border_radius}px; 
+            height: {self.height}px; 
+            font: {_font_size}pt '{_font_family}'; 
             font-weight: regular;
-            }
-        QPushButton:hover { 
-            background: #%s; 
-            }
-        QPushButton:pressed { 
-            background: #%s; 
-            }
-        QPushButton:disabled { 
-            background: #%s; 
-            }""" % (
-            self.color_normal,
-            _font_color,
-            _border_radius,
-            self.height,
-            _font_size,
-            _font_family,
-            self.color_hover,
-            self.color_pressed,
-            self.color_disabled))
+            }}
+        QPushButton:hover {{ 
+            background: #{self.color_hover}; 
+            }}
+        QPushButton:pressed {{ 
+            background: #{self.color_pressed}; 
+            }}
+        QPushButton:disabled {{ 
+            background: #{self.color_disabled}; 
+            }}""")
+
+
+class ToggleButton(QPushButton):
+    def __init__(self, _color_unchecked: str,  _color_checked: str, _default_value: bool = False,
+                 _image_path: str = None):
+        super(ToggleButton, self).__init__()
+        self.color_unchecked = _color_unchecked
+        self.color_checked = _color_checked
+
+        self.setCheckable(True)
+        self.setChecked(_default_value)
+
+        if _image_path is not None:
+            self.setIcon(QIcon(package_file_path(_image_path)))
+
+        self.setup_style()
+
+    def setup_style(self):
+        self.setStyleSheet(f"""
+        QPushButton {{ 
+            background-color: #{self.color_unchecked}; 
+            border-radius: {_border_radius}px;
+            }}
+        QPushButton:checked {{ 
+            background: #{self.color_checked};
+            }}""")
 
 
 class VerticalSlider(QSlider):
@@ -130,6 +168,23 @@ class Label(QLabel):
         self.setup_style()
 
     def setup_style(self):
-        self.setStyleSheet("""
-        color: #%s; font: %spt '%s';
-        """ % (_font_color, _font_size, _font_family))
+        self.setStyleSheet(f"""
+        color: #{_font_color}; font: {_font_size}pt '{_font_family}';
+        """)
+
+
+class HorizontalSeparator(QFrame):
+    def __init__(self, _color):
+        super(QFrame, self).__init__()
+        self.color = _color
+
+        self.setFrameShape(QFrame.HLine)
+        self.setFrameShadow(QFrame.Raised)
+        self.setLineWidth(0)
+
+        self.setup_style()
+
+    def setup_style(self):
+        self.setStyleSheet(f"""
+        background: #{self.color};
+        """)
