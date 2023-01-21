@@ -23,7 +23,7 @@ class SpinBox(QSpinBox):
         self.setup_style()
 
     def setup_style(self):
-        _spinup = 'images/spinup.png'
+        _spinup = absolute_path('images\\spinup.png')
         _spinup_hover = 'images/spinup_hover.png'
         _spinup_pressed = 'images/spinup_pressed.png'
 
