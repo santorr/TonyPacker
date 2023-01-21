@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIntValidator, QIcon
 from PyQt5.QtWidgets import QSpinBox, QLineEdit, QPushButton, QSlider, QLabel, QFrame, QSizePolicy
 
-from src.controllers.utility import package_file_path
+from src.controllers.utility import absolute_path
 
 _font_size = 10
 _font_color = "f2f2f2"
@@ -128,7 +128,7 @@ class ToggleButton(QPushButton):
         self.setChecked(_default_value)
 
         if _image_path is not None:
-            self.setIcon(QIcon(package_file_path(_image_path)))
+            self.setIcon(QIcon(absolute_path(_image_path)))
 
         self.setup_style()
 
