@@ -10,6 +10,7 @@ a = Analysis(
     hiddenimports=[],
     hookspath=None,
     runtime_hooks=None,
+    datas = []
 )
 a.datas += [('toggle_resolution.png', 'images\toggle_resolution.png', '.')]
 
