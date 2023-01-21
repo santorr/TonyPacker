@@ -31,11 +31,15 @@ class Channel(QWidget):
         _grid.setSpacing(0)
         self.setLayout(_grid)
 
-        self.label = Label(_text=self.channel_type.name[0])
-        self.label.setAlignment(Qt.AlignCenter)
+        self.channel_name = Label(_text=self.channel_type.name[0])
+        self.channel_resolution = Label(_text="2 x 2")
+
+        self.channel_name.setAlignment(Qt.AlignCenter)
+        self.channel_resolution.setAlignment(Qt.AlignCenter)
         _sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
-        self.label.setSizePolicy(_sizePolicy)
-        self.label.setContentsMargins(0, 0, 0, 10)
+        self.channel_resolution.setSizePolicy(_sizePolicy)
+        self.channel_name.setSizePolicy(_sizePolicy)
+        self.channel_name.setContentsMargins(0, 0, 0, 10)
 
         self.preview = DraggableImage(self)
         _sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
@@ -50,11 +54,12 @@ class Channel(QWidget):
         self.clear_button = Button(_text="Clear", _color_normal='fc2100', _color_hover='ca1e00', _color_pressed='bd2400', _color_disabled='505050', _height=30)
         self.clear_button.setEnabled(False)
 
-        _grid.addWidget(self.label, 0, 0, 1, 2)
-        _grid.addWidget(self.preview, 1, 0)
-        _grid.addWidget(self.slider, 1, 1)
-        _grid.addWidget(self.spinbox, 2, 0, 1, 2)
-        _grid.addWidget(self.clear_button, 3, 0, 1, 2)
+        _grid.addWidget(self.channel_name, 0, 0, 1, 2)
+        _grid.addWidget(self.channel_resolution, 1, 0, 1, 2)
+        _grid.addWidget(self.preview, 2, 0)
+        _grid.addWidget(self.slider, 2, 1)
+        _grid.addWidget(self.spinbox, 3, 0, 1, 2)
+        _grid.addWidget(self.clear_button, 4, 0, 1, 2)
 
     def clear_texture(self):
         self.slider.setEnabled(True)
@@ -83,7 +88,7 @@ class Channel(QWidget):
 
     def set_preview_image(self):
         """ Set the preview image """
+        self.channel_resolution.setText(f"{self.channel_data.get_data_size()[0]} x {self.channel_data.get_data_size()[1]}")
         _preview_size = self.preview.resolution
         img = QPixmap.fromImage(ImageQt(self.channel_data.get_image()))
-
         self.preview.label.setPixmap(img.scaled(_preview_size, _preview_size, Qt.KeepAspectRatio))

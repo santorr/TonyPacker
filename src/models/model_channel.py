@@ -5,7 +5,7 @@ from PIL import Image
 class ModelChannel:
     def __init__(self):
         """ Create default array of size 4 """
-        self.default_size = (512, 512)
+        self.default_size = (2, 2)
         self.data = np.ones(self.default_size, np.uint8)
 
     @staticmethod
@@ -25,6 +25,9 @@ class ModelChannel:
     def get_data(self):
         """ Return data at desired resolution """
         return self.data
+
+    def get_data_size(self):
+        return self.data.shape
 
     def get_image(self):
         return Image.fromarray(self.data)
