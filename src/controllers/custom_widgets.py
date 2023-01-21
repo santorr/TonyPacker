@@ -23,33 +23,41 @@ class SpinBox(QSpinBox):
         self.setup_style()
 
     def setup_style(self):
+        _spinup = 'images/spinup.png'
+        _spinup_hover = 'images/spinup_hover.png'
+        _spinup_pressed = 'images/spinup_pressed.png'
+
+        _spindown = 'images/spindown.png'
+        _spindown_hover = 'images/spindown_hover.png'
+        _spindown_pressed = 'images/spindown_pressed.png'
+
         self.setStyleSheet(f"""
         QSpinBox {{ background: #181818; color: #{_font_color}; padding-right: 15px; font: {_font_size}pt '{_font_family}'; border-radius: 7px;}}
         QSpinBox::up-button {{ 
             subcontrol-origin: border; 
             subcontrol-position: right; 
-            border-image: url(images/spinup.png); 
+            border-image: url({_spinup}); 
             width: 20px; 
             height: 20px;
         }}
         QSpinBox::up-button:hover {{
-            border-image: url(images/spinup_hover.png);
+            border-image: url({_spinup_hover});
         }}
         QSpinBox::up-button:pressed {{
-            border-image: url(images/spinup_pressed.png);
+            border-image: url({_spinup_pressed});
         }}
         QSpinBox::down-button {{ 
             subcontrol-origin: border; 
             subcontrol-position: left;
-            border-image: url(images/spindown.png); 
+            border-image: url({_spindown}); 
             width: 20px; 
             height: 20px;
         }}
         QSpinBox::down-button:hover {{
-            border-image: url(images/spindown_hover.png);
+            border-image: url({_spindown_hover});
         }}
         QSpinBox::down-button:pressed {{
-            border-image: url(images/spindown_pressed.png);
+            border-image: url({_spindown_pressed});
         }}
         """)
 
