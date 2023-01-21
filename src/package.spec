@@ -12,7 +12,7 @@ a = Analysis(
     runtime_hooks=None,
     datas = []
 )
-a.datas += [('toggle_resolution.png', 'images\toggle_resolution.png', '.')]
+a.datas += [('toggle_resolution.png', '\images\toggle_resolution.png', '.')]
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
