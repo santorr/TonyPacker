@@ -7,10 +7,10 @@ block_cipher = None
 a = Analysis(
     ['main.py'],
     pathex=[],
-    datas=[('images\logo.png', '.')],
     hiddenimports=[],
     hookspath=None,
     runtime_hooks=None,
+    datas = [('images\*.png', '.')],
 )
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
@@ -22,13 +22,13 @@ exe = EXE(
     a.datas,
     [],
     name='TonyPacker',
-    debug=False,
+    debug=True,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
