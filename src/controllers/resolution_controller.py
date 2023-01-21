@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
 from src.controllers.custom_widgets import IntEntry, ToggleButton
+from src.controllers.utility import absolute_path
 
 
 class ResolutionController(QWidget):
@@ -29,6 +30,7 @@ class ResolutionController(QWidget):
             self.resolution_y_entry.setEnabled(False)
             self.cal_ratio()
             print(f"Lock aspect ratio : {self.aspect_ratio}")
+            print(absolute_path("images/toggle_resolution.png"))
         else:
             self.resolution_y_entry.setEnabled(True)
             print("Unlock aspect ratio")
