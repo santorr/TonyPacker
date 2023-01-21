@@ -6,7 +6,7 @@ block_cipher = None
 
 a = Analysis(
     ['main.py'],
-    pathex=['images'],
+    pathex=[],
     hiddenimports=[],
     hookspath=None,
     runtime_hooks=None,
