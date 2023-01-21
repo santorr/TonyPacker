@@ -10,8 +10,9 @@ a = Analysis(
     hiddenimports=[],
     hookspath=None,
     runtime_hooks=None,
-    datas = [('images\*.png', '.')],
 )
+a.datas += [('images\*.png', '.')]
+
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
