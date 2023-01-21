@@ -136,6 +136,7 @@ class ToggleButton(QPushButton):
         self.setChecked(_default_value)
 
         if _image_path is not None:
+            # images\\toggle_resolution.png
             self.setIcon(QIcon(absolute_path(_image_path)))
 
         self.setup_style()
