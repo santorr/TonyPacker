@@ -24,12 +24,12 @@ class SpinBox(QSpinBox):
 
     def setup_style(self):
         _spinup = absolute_path('images/spinup.png')
-        _spinup_hover = 'images/spinup_hover.png'
-        _spinup_pressed = 'images/spinup_pressed.png'
+        _spinup_hover = absolute_path('images/spinup_hover.png')
+        _spinup_pressed = absolute_path('images/spinup_pressed.png')
 
-        _spindown = 'images/spindown.png'
-        _spindown_hover = 'images/spindown_hover.png'
-        _spindown_pressed = 'images/spindown_pressed.png'
+        _spindown = absolute_path('images/spindown.png')
+        _spindown_hover = absolute_path('images/spindown_hover.png')
+        _spindown_pressed = absolute_path('images/spindown_pressed.png')
 
         self.setStyleSheet(f"""
         QSpinBox {{ background: #181818; color: #{_font_color}; padding-right: 15px; font: {_font_size}pt '{_font_family}'; border-radius: 7px;}}
