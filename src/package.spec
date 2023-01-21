@@ -10,7 +10,7 @@ a = Analysis(
     hiddenimports=[],
     hookspath=None,
     runtime_hooks=None,
-    datas = [('images\*,png', 'images')]
+    datas = [('images\*.png', 'images')]
 )
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
