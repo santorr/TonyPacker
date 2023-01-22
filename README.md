@@ -5,6 +5,7 @@
 # Application
 
 This tool can pack grayscale textures into RGBA format.
+It can be useful if you want to [optimize textures](https://developer.arm.com/documentation/102696/0100/Texture-channel-packing) in a project.
 
 ![Window](resources/window.JPG)
 
@@ -19,7 +20,7 @@ I would like to have :
 - "Roughness" as green channel
 - "Displacement" as blue channel
 
-Just drag and drop the desired texture in the desired channel
+Just drag and drop texture in the desired channel
 
 ![Example](resources/example.JPG)
 
