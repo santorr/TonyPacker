@@ -26,4 +26,4 @@ Just drag and drop texture in the desired channel
 
 And export the result with desired resolution and format
 
-![Result](resources/result.JPG)
+![Result](resources/result.jpg)
