@@ -16,4 +16,17 @@ Just drag and drop texture from windows explorer into the desired channel
 
 For this example I have downloaded a set of textures from quixel bridge
 
-![Window](resources/library.jpg)
+![Library](resources/library.jpg)
+
+I would like to have : 
+- "Ambient_occlusion" as red channel
+- "Roughness" as green channel
+- "Displacement" as blue channel
+
+Just drag and drop the desired texture in the desired channel
+
+![Example](resources/example.JPG)
+
+And export the result with desired resolution and format
+
+![Result](resources/result.JPG)
