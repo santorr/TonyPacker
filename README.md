@@ -4,6 +4,10 @@
 
 # Application
 
-This tool can pack/unpack textures into channels (RGBA).
+This tool can pack grayscale textures into RGBA format.
 
 ![Window](resources/window.JPG)
+
+# Usage
+
+Just drag and drop texture from windows explorer into the desired channel
