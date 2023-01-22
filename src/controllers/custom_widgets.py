@@ -104,7 +104,7 @@ class Button(QPushButton):
         self.color_pressed = _color_pressed
         self.color_disabled = _color_disabled
         self.height = _height
-
+        self.setFocusPolicy(Qt.NoFocus)
         self.setText(_text)
         self.setup_style()
 
@@ -136,6 +136,7 @@ class ToggleButton(QPushButton):
         self.color_unchecked = _color_unchecked
         self.color_checked = _color_checked
 
+        self.setFocusPolicy(Qt.NoFocus)
         self.setCheckable(True)
         self.setChecked(_default_value)
 
@@ -162,7 +163,7 @@ class VerticalSlider(QSlider):
         self.setMinimum(_minimum)
         self.setMaximum(_maximum)
         self.setTickInterval(_tick_interval)
-
+        self.setFocusPolicy(Qt.NoFocus)
         self.setup_style()
 
     def setup_style(self):
