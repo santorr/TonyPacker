@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
                                         _channel_b=self.b_channel.channel_data.get_data(),
                                         _channel_a=self.a_channel.channel_data.get_data(),
                                         _format=_format,
-                                        _resolution=(self.resolution_x.get_value(), self.resolution_y.get_value()),
+                                        _resolution=self.resolution_controller.get_resolution(),
                                         _quality=95,
                                         _subsampling=0)
             _new_texture.save_image(_full_path=fr"{_path}")

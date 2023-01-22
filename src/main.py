@@ -9,7 +9,7 @@ if __name__ == "__main__":
     """ Run the application """
     app = QApplication(sys.argv)
     app.setApplicationName('Tony Packer')
-    app.setApplicationVersion("0.0.1")
+    app.setApplicationVersion("1.0.1")
     """ Create the main window """
     window = MainWindow()
 

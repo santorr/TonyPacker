@@ -50,4 +50,4 @@ class ResolutionController(QWidget):
         return self.resolution_y_entry.get_value()
 
     def get_resolution(self):
-        return self.get_resolution_x, self.get_resolution_y
+        return self.get_resolution_x(), self.get_resolution_y()
