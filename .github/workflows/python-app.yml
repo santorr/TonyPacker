@@ -1,8 +1,10 @@
 name: Package application
 
 on:
-  push
-  
+  push:
+    branches:
+      -main
+
 env:
   NAME_APP: 'Tony Packer'
   NAME_EXE: TonyPacker.exe
