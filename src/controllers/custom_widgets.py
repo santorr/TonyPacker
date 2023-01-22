@@ -78,12 +78,16 @@ class IntEntry(QLineEdit):
 
     def setup_style(self):
         self.setStyleSheet(f"""
-        color: #{_font_color};
-        font: {_font_size}pt '{_font_family}';
-        background-color: #{self.color};
-        border: 0;
-        border-radius: {_border_radius}px;
-        """)
+        QLineEdit {{ 
+            color: #{_font_color}; 
+            font: {_font_size}pt '{_font_family}'; 
+            font-weight: regular;
+            background-color: #{self.color}; 
+            border-radius: {_border_radius}px; 
+            }}
+        QLineEdit:disabled {{ 
+            background: #505050; 
+            }}""")
 
     def set_value(self, _value):
         self.setText(str(_value))
