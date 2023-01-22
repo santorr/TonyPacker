@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
+from src.controllers.formats import Formats
+
 
 class ModelTexture:
     def __init__(self, _channel_r, _channel_g, _channel_b, _channel_a, _format, _resolution=(512, 512), _quality=95, _subsampling=0):
@@ -20,7 +22,7 @@ class ModelTexture:
 
     def final_array(self):
         """ Create a base array with a desired resolution """
-        if ".png" in self.format:
+        if Formats().get_format_data_from_extension(self.format)['alpha']:
             return np.dstack((self.channel_r, self.channel_g, self.channel_b, self.channel_a))
         else:
             return np.dstack((self.channel_r, self.channel_g, self.channel_b))
