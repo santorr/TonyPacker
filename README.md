@@ -5,3 +5,5 @@
 # Application
 
 This tool can pack/unpack textures into channels (RGBA).
+
+![Window](resources/window.jpg?raw=true "Title")
