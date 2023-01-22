@@ -8,10 +8,6 @@ This tool can pack grayscale textures into RGBA format.
 
 ![Window](resources/window.JPG)
 
-# Usage
-
-Just drag and drop texture from windows explorer into the desired channel
-
 # Example
 
 For this example I have downloaded a set of textures from quixel bridge
@@ -25,7 +21,7 @@ I would like to have :
 
 Just drag and drop the desired texture in the desired channel
 
-![Example](resources/example.JPG =100x)
+![Example](resources/example.JPG)
 
 And export the result with desired resolution and format
 
