@@ -25,7 +25,7 @@ I would like to have :
 
 Just drag and drop the desired texture in the desired channel
 
-![Example](resources/example.JPG)
+![Example](resources/example.JPG =100x)
 
 And export the result with desired resolution and format
 
