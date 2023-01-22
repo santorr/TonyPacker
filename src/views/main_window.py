@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         _grid.addWidget(self.export_button, 5, 2, 1, 2)
 
     def export_texture(self):
-        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")
+        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")
         _path = _file_path[0]
         _format = _file_path[1]
         if _path != '' and _format != '':

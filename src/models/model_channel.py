@@ -28,7 +28,7 @@ class ModelChannel:
 
     def get_data_size(self):
         """ Return a tuple for the data size (x, y) """
-        return self.data.shape
+        return self.data.shape[1], self.data.shape[0]
 
     def get_image(self):
         """ Return an image based on data with original data size """
