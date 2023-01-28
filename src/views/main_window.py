@@ -11,6 +11,7 @@ from src.controllers.custom_widgets import Button, HorizontalSeparator
 
 
 class MainWindow(QMainWindow):
+    """ This object is the main window ui """
     def __init__(self):
         QMainWindow.__init__(self)
 
@@ -22,7 +23,7 @@ class MainWindow(QMainWindow):
         self.resolution_controller = ResolutionController(_default_resolution=(1024, 1024))
         self.export_button = Button(_text="Export", _color_normal='009bfc', _color_hover='0079ca',
                                     _color_pressed='0069bd', _color_disabled='505050')
-        self.export_button.clicked.connect(self.export_texture)
+        self.export_button.clicked.connect(self.open_export_dialogue_box)
 
         self.setup_ui()
 
@@ -49,18 +50,23 @@ class MainWindow(QMainWindow):
         _grid.addWidget(self.resolution_controller, 5, 0, 1, 2)
         _grid.addWidget(self.export_button, 5, 2, 1, 2)
 
-    def export_texture(self):
+    def open_export_dialogue_box(self):
+        """ Open a dialogue box to set an export location and export format """
         _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", Formats().get_export_formats())
         _path = Path(_file_path[0])
         _format = Formats().get_format(_format_extension=_path.suffix)
 
         if _path != '' and _format != '':
-            _new_texture = Texture(_channel_r=self.r_channel.channel_data.get_data(),
-                                   _channel_g=self.g_channel.channel_data.get_data(),
-                                   _channel_b=self.b_channel.channel_data.get_data(),
-                                   _channel_a=self.a_channel.channel_data.get_data(),
-                                   _format=_format,
-                                   _resolution=self.resolution_controller.get_resolution(),
-                                   _quality=95,
-                                   _subsampling=0)
-            _new_texture.save_texture(_full_path=fr"{_path}")
+            self.export_texture(_path=_path, _format=_format)
+
+    def export_texture(self, _format: dict, _path: Path):
+        """ Create a texture and export it at the desired path """
+        _new_texture = Texture(_channel_r=self.r_channel.channel_data.get_data(),
+                               _channel_g=self.g_channel.channel_data.get_data(),
+                               _channel_b=self.b_channel.channel_data.get_data(),
+                               _channel_a=self.a_channel.channel_data.get_data(),
+                               _format=_format,
+                               _resolution=self.resolution_controller.get_resolution(),
+                               _quality=95,
+                               _subsampling=0)
+        _new_texture.save_texture(_full_path=fr"{_path}")

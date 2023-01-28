@@ -62,16 +62,19 @@ class ChannelView(QWidget):
         _grid.addWidget(self.clear_button, 4, 0, 1, 2)
 
     def clear_texture(self):
+        """ Event on clear texture """
         self.slider.setEnabled(True)
         self.spinbox.setEnabled(True)
         self.clear_button.setEnabled(False)
         self.set_channel_with_slider()
 
     def on_slider_changed(self):
+        """ Event on slider change value """
         self.spinbox.setValue(self.slider.value())
         self.set_channel_with_slider()
 
     def on_spinbox_changed(self):
+        """ Event on spinbox change value """
         self.slider.setValue(self.spinbox.value())
 
     def set_channel_with_slider(self):

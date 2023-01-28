@@ -23,28 +23,20 @@ class Formats:
     ]
 
     def get_extension_list(self):
+        """ Get the list of formats extension"""
         return [_format['extension'] for _format in self._formats]
 
     def get_formats(self):
+        """ Get all formats """
         return self._formats
 
     def get_export_formats(self):
-        result = ''
-        for i in range(len(self._formats)):
-            if i < len(self._formats) - 1:
-                result += f"{self._formats[i]['name']} (*{self._formats[i]['extension']});; "
-            else:
-                result += f"{self._formats[i]['name']} (*{self._formats[i]['extension']})"
-        return result
+        """ Get export format as string """
+        return ''.join(f"{self._formats[i]['name']} (*{self._formats[i]['extension']});; " if i < len(self._formats) - 1 else f"{self._formats[i]['name']} (*{self._formats[i]['extension']})" for i in range(len(self._formats)))
 
-    def get_format(self, _format_extension=None, _format_name=None):
-        """ Return a format dict """
-        if _format_extension is not None:
-            for _format in self._formats:
-                if _format_extension == _format['extension']:
-                    return _format
-        else:
-            for _format in self._formats:
-                if _format_name == _format['name']:
-                    return _format
+    def get_format(self, _format_extension=None):
+        """ Return a format dict from a format extension"""
+        for _format in self._formats:
+            if _format_extension == _format['extension']:
+                return _format
         return

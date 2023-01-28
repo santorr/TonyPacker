@@ -6,7 +6,6 @@ from src.views.main_window import MainWindow
 from src.controllers.utility import absolute_path
 
 if __name__ == "__main__":
-    """ Run the application """
     app = QApplication(sys.argv)
     app.setApplicationName('Tony Packer')
     app.setApplicationVersion("1.0.1")
