@@ -1,5 +1,3 @@
-import pathlib
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFileDialog
 from pathlib import Path
@@ -7,7 +5,7 @@ from pathlib import Path
 from src.controllers.formats import Formats
 from src.controllers.resolution_controller import ResolutionController
 from src.models.enums import Channels
-from src.views.widgets.channel_view import ChannelView
+from src.views.channel_view import ChannelView
 from src.models.texture import Texture
 from src.controllers.custom_widgets import Button, HorizontalSeparator
 

@@ -2,9 +2,9 @@ from PIL.ImageQt import ImageQt
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QSizePolicy
-from .draggable_channel import DraggableImage
-from ...models.channel import Channel
-from ...controllers.custom_widgets import SpinBox, Button, VerticalSlider, Label
+from src.views.draggable_channel import DraggableImage
+from src.models.channel import Channel
+from src.controllers.custom_widgets import SpinBox, Button, VerticalSlider, Label
 
 
 class ChannelView(QWidget):
