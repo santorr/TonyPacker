@@ -1,3 +1,5 @@
+import pathlib
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFileDialog
 from pathlib import Path
@@ -50,9 +52,16 @@ class MainWindow(QMainWindow):
         _grid.addWidget(self.export_button, 5, 2, 1, 2)
 
     def export_texture(self):
+<<<<<<< HEAD
         _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", Formats().get_export_formats())
         _path = Path(_file_path[0])
         _format = Formats().get_format(_format_extension=_path.suffix)
+=======
+        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", f"{Formats().get_export_formats()}")
+        _path = _file_path[0]
+        _format = pathlib.Path(_path).suffix
+
+>>>>>>> 1c5f9ccfc63fe225e2d7dfbfcfae374f1f2eb282
         if _path != '' and _format != '':
             _new_texture = ModelTexture(_channel_r=self.r_channel.channel_data.get_data(),
                                         _channel_g=self.g_channel.channel_data.get_data(),
