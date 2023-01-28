@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QFileDialog
+from pathlib import Path
 
+from src.controllers.formats import Formats
 from src.controllers.resolution_controller import ResolutionController
 from src.models.enums import Channels
 from src.views.widgets.channel import Channel
@@ -48,9 +50,9 @@ class MainWindow(QMainWindow):
         _grid.addWidget(self.export_button, 5, 2, 1, 2)
 
     def export_texture(self):
-        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", "JPG (*.jpg);; JPEG (*.jpeg) ;;PNG (*.png)")
-        _path = _file_path[0]
-        _format = _file_path[1]
+        _file_path = QFileDialog.getSaveFileName(self, 'Save File', "", Formats().get_export_formats())
+        _path = Path(_file_path[0])
+        _format = Formats().get_format(_format_extension=_path.suffix)
         if _path != '' and _format != '':
             _new_texture = ModelTexture(_channel_r=self.r_channel.channel_data.get_data(),
                                         _channel_g=self.g_channel.channel_data.get_data(),

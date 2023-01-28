@@ -20,9 +20,11 @@ class ModelTexture:
 
     def final_array(self):
         """ Create a base array with a desired resolution """
-        if ".png" in self.format:
+        if self.format['alpha']:
+            print("Compute with alpha channel.")
             return np.dstack((self.channel_r, self.channel_g, self.channel_b, self.channel_a))
         else:
+            print("Compute without alpha channel.")
             return np.dstack((self.channel_r, self.channel_g, self.channel_b))
 
     def save_image(self, _full_path: str):

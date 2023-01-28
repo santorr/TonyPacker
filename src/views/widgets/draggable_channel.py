@@ -1,7 +1,8 @@
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import QWidget, QGridLayout
-
+from pathlib import Path
 from src.controllers.custom_widgets import Label
+from src.controllers.formats import Formats
 
 
 class DraggableImage(QWidget):
@@ -38,9 +39,14 @@ class DraggableImage(QWidget):
         """ Set the drop event """
         if event.mimeData().hasImage:
             event.setDropAction(Qt.CopyAction)
-            file_path = event.mimeData().urls()[0].toLocalFile()
-            self.channel.set_channel_with_image(file_path)
-            event.accept()
+            file_path = Path(event.mimeData().urls()[0].toLocalFile())
+            file_extension = file_path.suffix.lower()
+            if file_extension in Formats().get_extension_list():
+                self.channel.set_channel_with_image(file_path)
+                event.accept()
+            else:
+                print(f"You can't import {file_extension} format.")
+                event.ignore()
         else:
             event.ignore()
 
