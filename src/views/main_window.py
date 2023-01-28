@@ -7,8 +7,8 @@ from pathlib import Path
 from src.controllers.formats import Formats
 from src.controllers.resolution_controller import ResolutionController
 from src.models.enums import Channels
-from src.views.widgets.channel import Channel
-from src.models.model_texture import ModelTexture
+from src.views.widgets.channel_view import ChannelView
+from src.models.texture import Texture
 from src.controllers.custom_widgets import Button, HorizontalSeparator
 
 
@@ -16,10 +16,10 @@ class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        self.r_channel = Channel(_channel_type=Channels.RED, _default_value=150)
-        self.g_channel = Channel(_channel_type=Channels.GREEN, _default_value=150)
-        self.b_channel = Channel(_channel_type=Channels.BLUE, _default_value=150)
-        self.a_channel = Channel(_channel_type=Channels.ALPHA, _default_value=255)
+        self.r_channel = ChannelView(_channel_type=Channels.RED, _default_value=150)
+        self.g_channel = ChannelView(_channel_type=Channels.GREEN, _default_value=150)
+        self.b_channel = ChannelView(_channel_type=Channels.BLUE, _default_value=150)
+        self.a_channel = ChannelView(_channel_type=Channels.ALPHA, _default_value=255)
         self.separator = HorizontalSeparator(_color='181818')
         self.resolution_controller = ResolutionController(_default_resolution=(1024, 1024))
         self.export_button = Button(_text="Export", _color_normal='009bfc', _color_hover='0079ca',
@@ -57,12 +57,12 @@ class MainWindow(QMainWindow):
         _format = Formats().get_format(_format_extension=_path.suffix)
 
         if _path != '' and _format != '':
-            _new_texture = ModelTexture(_channel_r=self.r_channel.channel_data.get_data(),
-                                        _channel_g=self.g_channel.channel_data.get_data(),
-                                        _channel_b=self.b_channel.channel_data.get_data(),
-                                        _channel_a=self.a_channel.channel_data.get_data(),
-                                        _format=_format,
-                                        _resolution=self.resolution_controller.get_resolution(),
-                                        _quality=95,
-                                        _subsampling=0)
-            _new_texture.save_image(_full_path=fr"{_path}")
+            _new_texture = Texture(_channel_r=self.r_channel.channel_data.get_data(),
+                                   _channel_g=self.g_channel.channel_data.get_data(),
+                                   _channel_b=self.b_channel.channel_data.get_data(),
+                                   _channel_a=self.a_channel.channel_data.get_data(),
+                                   _format=_format,
+                                   _resolution=self.resolution_controller.get_resolution(),
+                                   _quality=95,
+                                   _subsampling=0)
+            _new_texture.save_texture(_full_path=fr"{_path}")

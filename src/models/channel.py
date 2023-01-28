@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-class ModelChannel:
+class Channel:
     def __init__(self):
         """ Create default array of size 4 """
         self.default_size = (2, 2)

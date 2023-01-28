@@ -3,18 +3,18 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QGridLayout, QSizePolicy
 from .draggable_channel import DraggableImage
-from ...models.model_channel import ModelChannel
+from ...models.channel import Channel
 from ...controllers.custom_widgets import SpinBox, Button, VerticalSlider, Label
 
 
-class Channel(QWidget):
+class ChannelView(QWidget):
     def __init__(self, _channel_type=None, _default_value=255):
-        super(Channel, self).__init__()
+        super(ChannelView, self).__init__()
         """ Init variables """
         self.channel_type = _channel_type
         self.default_value = _default_value
         """ Create channel data """
-        self.channel_data = ModelChannel()
+        self.channel_data = Channel()
         """ Create Ui """
         self.setup_ui()
         """ Create all connect """
@@ -76,7 +76,7 @@ class Channel(QWidget):
 
     def set_channel_with_slider(self):
         self.channel_data.fill_data_with_uniform_value(self.slider.value())
-        self.set_preview_image()
+        self.set_preview_channel()
 
     def set_channel_with_image(self, image_path):
         self.slider.setEnabled(False)
@@ -84,9 +84,9 @@ class Channel(QWidget):
         self.clear_button.setEnabled(True)
 
         self.channel_data.fill_data_with_image(image_path)
-        self.set_preview_image()
+        self.set_preview_channel()
 
-    def set_preview_image(self):
+    def set_preview_channel(self):
         """ Set the preview image """
         self.channel_resolution.setText(f"{self.channel_data.get_data_size()[0]} x {self.channel_data.get_data_size()[1]}")
         _preview_size = self.preview.resolution
